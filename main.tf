@@ -77,7 +77,6 @@ module "blog_alb" {
   tags = {
     Environment = "blog_dev_environment"
     }
-  }
 ]
  
 
