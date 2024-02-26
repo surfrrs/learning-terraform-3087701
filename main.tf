@@ -29,6 +29,17 @@ resource "aws_instance" "blog" {
   }
 }
 
+module "blog_sgroup" {
+  source      = "terraform-aws-modules/security-group/aws"
+  version     = "5.1.0"
+  name        = "blog_new"
+  description = "Allow http and https in.  Allow everything out."
+
+  vpc_id        = data.aws_vpc.default.id
+  ingress_rules = ["http-80-tcp","http-443-tcp"]
+  egress_rules = ["all-all"]
+}
+
 resource "aws_security_group" "blog" {
   name        = "blog"
   description = "Allow http and https in.  Allow everything out."
