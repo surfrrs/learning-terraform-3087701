@@ -63,14 +63,16 @@ module "blog_alb" {
       target_type      = "instance"
     } 
   ]
-  
-  http_tcp_listeners = [
-    {
-      port               = 80
-      protocol           = "HTTP"
-      target_group_index = 0
-    }
-  ]
+
+  listeners = {
+    http_tcp_listeners = [
+      {
+        port               = 80
+        protocol           = "HTTP"
+        target_group_index = 0
+      }
+    ]
+  }
 
   tags = {
     Environment = "blog_dev_environment"
