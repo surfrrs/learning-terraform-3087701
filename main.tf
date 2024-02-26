@@ -52,13 +52,13 @@ module "blog_alb" {
   # Security Group
   security_groups = module.blog_sgroup.security_group_id
 
-  listeners = {
+  listeners = [
     http-tcp-listeners = {
       port               = 80
       protocol           = "HTTP"
       target_group_index = 0
       }
-    }
+  ]
 
   target_groups = [
    {
