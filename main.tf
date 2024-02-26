@@ -55,14 +55,6 @@ module "blog_alb" {
   # Security Group
   security_groups = [module.blog_sgroup.security_group_id]
 
- http-tcp-listeners = [
-  {
-      port               = 80
-      protocol           = "HTTP"
-      target_group_index = 0
-      }
-]
-
   target_groups = [
    {
       name_prefix      = "blog-"
@@ -71,7 +63,14 @@ module "blog_alb" {
       target_type      = "instance"
     } 
   ]
-
+  
+  http_tcp_listeners = [
+    {
+      port               = 80
+      protocol           = "HTTP"
+      target_group_index = 0
+    }
+  ]
 
   tags = {
     Environment = "blog_dev_environment"
