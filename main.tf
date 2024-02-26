@@ -30,7 +30,7 @@ module "blog_vpc" {
   }
 }
 
-resource "aws_instance" "blog" {
+resource "aws_instance" "blog_new" {
   ami           = data.aws_ami.app_ami.id
   instance_type = var.instance_type
   vpc_security_group_ids = [module.blog_sgroup.security_group_id]
@@ -39,6 +39,44 @@ resource "aws_instance" "blog" {
 
   tags = {
     Name = "Learning Terraform"
+  }
+}
+
+module "blog_alb" {
+  source = "terraform-aws-modules/alb/aws"
+
+  name    = "blog-alb"
+  vpc_id  = module.blog_vpc.vpc_id
+  subnets = module.blog_vpc.public_subnets
+
+  # Security Group
+  security_groups = module.blog_sgroup.security_group_id
+
+  listeners = {
+    http-tcp-listeners = {
+      port               = 80
+      protocol           = "HTTP"
+      target_group_index = 0
+      }
+    }
+
+  target_groups = {
+    {
+      name_prefix      = "blog"
+      protocol         = "HTTP"
+      port             = 80
+      target_type      = "instance"
+      targets = {
+        my_target = {
+          target_id = aws_instance.blog_new.id
+          port = 80
+        }
+      }
+    }
+  }
+
+  tags = {
+    Environment = "blog_dev_environment"
   }
 }
 
