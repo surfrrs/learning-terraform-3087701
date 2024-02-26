@@ -42,7 +42,7 @@ resource "aws_instance" "blog" {
   }
 }
 
-module "blog_sg" {
+module "blog_sgroup" {
   source      = "terraform-aws-modules/security-group/aws"
   version     = "5.1.0"
 
