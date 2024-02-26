@@ -22,7 +22,7 @@ resource "aws_instance" "blog" {
   ami           = data.aws_ami.app_ami.id
   instance_type = var.instance_type
 
-  vpc_security_group_ids = [aws_security_group.blog.id]
+  vpc_security_group_ids = [module.blog_sgroup.security_group_id]
 
   tags = {
     Name = "Learning Terraform"
@@ -35,8 +35,9 @@ module "blog_sgroup" {
   name        = "blog_new"
   description = "Allow http and https in.  Allow everything out."
 
-  vpc_id        = data.aws_vpc.default.id
-  ingress_rules = ["http-80-tcp","http-443-tcp"]
+  vpc_id              = data.aws_vpc.default.id
+  ingress_rules       = ["http-80-tcp","http-443-tcp"]
+  ingress_cidr_blocks = ["0.0.0.0/0"]
   egress_rules = ["all-all"]
 }
 
