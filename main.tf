@@ -69,7 +69,7 @@ module "blog_alb" {
       target_type      = "instance"
       targets = {
         my_target = {
-          target_id = aws_instance.blog_new.id
+          target_id = aws_instance.blog.id
           port = 80
         }
       }
@@ -86,7 +86,7 @@ module "blog_alb" {
 module "blog_sgroup" {
   source      = "terraform-aws-modules/security-group/aws"
   version     = "5.1.0"
-  name        = "blog_new"
+  name        = "blog"
 
   vpc_id              = module.blog_vpc.vpc_id
   ingress_rules       = ["http-80-tcp","https-443-tcp"]
