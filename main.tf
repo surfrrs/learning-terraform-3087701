@@ -45,6 +45,7 @@ resource "aws_instance" "blog" {
 module "blog_sgroup" {
   source      = "terraform-aws-modules/security-group/aws"
   version     = "5.1.0"
+  name        = "blog_new"
 
   vpc_id              = module.blog_vpc.vpc_id
   ingress_rules       = ["http-80-tcp","https-443-tcp"]
