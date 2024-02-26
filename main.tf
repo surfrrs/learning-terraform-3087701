@@ -77,11 +77,9 @@ module "blog_alb" {
   ]
 
 
-  tags = [
-  {
+  tags = {
     Environment = "blog_dev_environment"
     }
-  ]
 }
  
 
