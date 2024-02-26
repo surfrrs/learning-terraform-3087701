@@ -33,7 +33,6 @@ module "blog_sgroup" {
   source      = "terraform-aws-modules/security-group/aws"
   version     = "5.1.0"
   name        = "blog_new"
-  description = "Allow http and https in.  Allow everything out."
 
   vpc_id              = data.aws_vpc.default.id
   ingress_rules       = ["http-80-tcp","https-443-tcp"]
