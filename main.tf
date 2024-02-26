@@ -60,8 +60,8 @@ module "blog_alb" {
       }
     }
 
-  target_groups = {
-    {
+  target_groups = [
+   {
       name_prefix      = "blog"
       protocol         = "HTTP"
       port             = 80
@@ -78,7 +78,8 @@ module "blog_alb" {
     Environment = "blog_dev_environment"
     }
   }
-}
+]
+ 
 
 module "blog_sgroup" {
   source      = "terraform-aws-modules/security-group/aws"
