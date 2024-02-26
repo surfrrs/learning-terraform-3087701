@@ -72,13 +72,12 @@ module "blog_alb" {
           port = 80
         }
       }
-    }
   }
 
   tags = {
     Environment = "blog_dev_environment"
   }
-}
+  }
 
 module "blog_sgroup" {
   source      = "terraform-aws-modules/security-group/aws"
