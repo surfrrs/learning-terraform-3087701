@@ -64,7 +64,7 @@ module "blog_alb" {
     } 
   ]
 
-  listeners = {
+  listeners = [
     http_tcp_listeners = [
       {
         port               = 80
@@ -72,7 +72,7 @@ module "blog_alb" {
         target_group_index = 0
       }
     ]
-  }
+  ]
 
   tags = {
     Environment = "blog_dev_environment"
