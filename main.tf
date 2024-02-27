@@ -42,44 +42,6 @@ resource "aws_instance" "blog" {
   }
 }
 
-module "blog_alb" {
-  source = "terraform-aws-modules/alb/aws"
-
-  name    = "blog-alb"
-
-  load_balancer_type = "application"
-
-  vpc_id  = module.blog_vpc.vpc_id
-  subnets = module.blog_vpc.public_subnets
-
-  # Security Group
-  security_groups = [module.blog_sgroup.security_group_id]
-
-  target_groups = [
-   {
-      name_prefix      = "blog-"
-      protocol         = "HTTP"
-      port             = 80
-      target_type      = "instance"
-    } 
-  ]
-
-  listeners = {
-    http_tcp_listeners = [
-      {
-        port               = 80
-        protocol           = "HTTP"
-        target_group_index = 0
-      }
-    ]
-  }
-
-  tags = {
-    Environment = "blog_dev_environment"
-    }
-}
- 
-
 module "blog_sgroup" {
   source      = "terraform-aws-modules/security-group/aws"
   version     = "5.1.0"
